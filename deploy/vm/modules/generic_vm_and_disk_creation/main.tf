@@ -21,23 +21,64 @@ resource "azurerm_storage_account" "bootdiagstorageaccount" {
   }
 }
 
-# All disks that are in the storage_disk_sizes_gb list will be created
-resource "azurerm_managed_disk" "disk" {
-  count                = "${length(var.storage_disk_sizes_gb)}"
-  name                 = "${var.machine_name}-disk${count.index}"
+# All disks that are in the storage_disk_sizes_data list will be created
+resource "azurerm_managed_disk" "disk_data" {
+  count                = "${length(var.storage_disk_sizes_data)}"
+  name                 = "${var.machine_name}-datadisk${count.index}"
   location             = "${var.az_region}"
   storage_account_type = "Premium_LRS"
   resource_group_name  = "${var.az_resource_group}"
-  disk_size_gb         = "${var.storage_disk_sizes_gb[count.index]}"
+  disk_size_gb         = "${var.storage_disk_sizes_data[count.index]}"
   create_option        = "Empty"
 }
 
 # All of the disks created above will now be attached to the VM
-resource "azurerm_virtual_machine_data_disk_attachment" "disk" {
-  count              = "${length(var.storage_disk_sizes_gb)}"
+resource "azurerm_virtual_machine_data_disk_attachment" "disk_data" {
+  count              = "${length(var.storage_disk_sizes_data)}"
   virtual_machine_id = "${azurerm_virtual_machine.vm.id}"
-  managed_disk_id    = "${element(azurerm_managed_disk.disk.*.id, count.index)}"
+  managed_disk_id    = "${element(azurerm_managed_disk.disk_data.*.id, count.index)}"
   lun                = "${count.index}"
+  caching            = "ReadOnly"
+}
+
+# All disks that are in the storage_disk_sizes_log list will be created
+resource "azurerm_managed_disk" "disk_log" {
+  count                = "${length(var.storage_disk_sizes_log)}"
+  name                 = "${var.machine_name}-logdisk${count.index}"
+  location             = "${var.az_region}"
+  storage_account_type = "Premium_LRS"
+  resource_group_name  = "${var.az_resource_group}"
+  disk_size_gb         = "${var.storage_disk_sizes_log[count.index]}"
+  create_option        = "Empty"
+}
+
+# All of the disks created above will now be attached to the VM
+resource "azurerm_virtual_machine_data_disk_attachment" "disk_log" {
+  count              = "${length(var.storage_disk_sizes_log)}"
+  virtual_machine_id = "${azurerm_virtual_machine.vm.id}"
+  managed_disk_id    = "${element(azurerm_managed_disk.disk_log.*.id, count.index)}"
+  lun                = "${count.index + length(var.storage_disk_sizes_data)}"
+  caching            = "None"
+  write_accelerator_enabled = true
+}
+
+# All disks that are in the storage_disk_sizes_shared list will be created
+resource "azurerm_managed_disk" "disk_shared" {
+  count                = "${length(var.storage_disk_sizes_shared)}"
+  name                 = "${var.machine_name}-shareddisk${count.index}"
+  location             = "${var.az_region}"
+  storage_account_type = "Premium_LRS"
+  resource_group_name  = "${var.az_resource_group}"
+  disk_size_gb         = "${var.storage_disk_sizes_shared[count.index]}"
+  create_option        = "Empty"
+}
+
+# All of the disks created above will now be attached to the VM
+resource "azurerm_virtual_machine_data_disk_attachment" "disk_shared" {
+  count              = "${length(var.storage_disk_sizes_shared)}"
+  virtual_machine_id = "${azurerm_virtual_machine.vm.id}"
+  managed_disk_id    = "${element(azurerm_managed_disk.disk_shared.*.id, count.index)}"
+  lun                = "${count.index + length(var.storage_disk_sizes_data) + length(var.storage_disk_sizes_log)}"
   caching            = "ReadWrite"
 }
 

@@ -58,18 +58,23 @@ variable "install_webide" {
   default     = false
 }
 
+variable "vnet_address" {
+  description = "The address space of the Vnet that will be created"
+  default     = "10.222.0.0/24"
+}
+
 variable "private_ip_address_hdb" {
   description = "The desired private IP address of this HANA database.  If it isn't specified, a dynamic IP will be allocated."
-  default     = "10.0.0.6"
+  default     = "10.222.0.6"
 }
 
 variable "private_ip_address_windows_bastion" {
   description = "The desired private IP address of this bastion host.  If it isn't specified, a dynamic IP will be allocated."
-  default     = "10.0.0.4"
+  default     = "10.222.0.4"
 }
 
 variable "private_ip_address_linux_bastion" {
-  default = "10.0.0.5"
+  default = "10.222.0.5"
 }
 
 variable "public_ip_allocation_type" {
@@ -125,9 +130,19 @@ variable "sshkey_path_public" {
   description = "The path on the local machine to where the public key is"
 }
 
-variable "storage_disk_sizes_gb" {
-  description = "List disk sizes in GB for all disks this VM will need"
+variable "storage_disk_sizes_data" {
+  description = "List disk sizes in GB for all HANA data disks"
   default     = [512, 512, 512]
+}
+
+variable "storage_disk_sizes_log" {
+  description = "List disk sizes in GB for all HANA log disks"
+  default     = [32, 32]
+}
+
+variable "storage_disk_sizes_shared" {
+  description = "List disk sizes in GB for all HANA shared disks"
+  default     = [512]
 }
 
 variable "url_cockpit" {

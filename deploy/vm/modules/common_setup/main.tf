@@ -20,11 +20,11 @@ module "vnet" {
   source  = "Azure/vnet/azurerm"
   version = "1.2.0"
 
-  address_space       = "10.0.0.0/21"
+  address_space       = "${var.vnet_address}"
   location            = "${var.az_region}"
   resource_group_name = "${var.az_resource_group}"
-  subnet_names        = ["hdb-subnet"]
-  subnet_prefixes     = ["10.0.0.0/24"]
+  subnet_names        = ["${var.vnet_subnet_name}"]
+  subnet_prefixes     = ["${var.vnet_subnet_address}"]
   vnet_name           = "${var.sap_sid}-vnet"
 
   tags {
