@@ -79,7 +79,7 @@ vnet_address = "10.222.0.0/24"
 vnet_subnet_address = ["10.222.0.0/27"]
 
 # The name of the first subnet
-vnet_subnet_name = "default"
+vnet_subnet_name = ["default"]
 
 # The desired private IP address of this HANA database.
 private_ip_address_hdb = "10.222.0.6"
