@@ -48,13 +48,23 @@ variable "sshkey_path_public" {
   description = "The path on the local machine to where the public key is"
 }
 
-variable "storage_disk_sizes_gb" {
-  type        = "list"
-  description = "List disk sizes in GB for all disks this VM will need"
+variable "storage_disk_sizes_data" {
+  description = "List disk sizes in GB for all HANA data disks"
+  default     = [512, 512, 512]
+}
+
+variable "storage_disk_sizes_log" {
+  description = "List disk sizes in GB for all HANA log disks"
+  default     = [32, 32]
+}
+
+variable "storage_disk_sizes_shared" {
+  description = "List disk sizes in GB for all HANA shared disks"
+  default     = [512]
 }
 
 variable "vm_size" {
-  default = "Standard_E8s_v3"
+  description = "Size of the VM"
 }
 
 variable "vm_user" {

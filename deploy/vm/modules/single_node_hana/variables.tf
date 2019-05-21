@@ -63,6 +63,16 @@ variable "vnet_address" {
   default     = "10.222.0.0/24"
 }
 
+variable "vnet_subnet_address" {
+  description = "The address of the first subnet"
+  default = ["10.222.0.0/27"]
+}
+
+variable "vnet_subnet_name" {
+  description = "The name of the first subnet"
+  default = "default"
+}
+
 variable "private_ip_address_hdb" {
   description = "The desired private IP address of this HANA database.  If it isn't specified, a dynamic IP will be allocated."
   default     = "10.222.0.6"

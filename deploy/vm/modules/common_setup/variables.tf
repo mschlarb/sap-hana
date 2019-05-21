@@ -53,3 +53,7 @@ locals {
     "XSA,106,50000-59999",
   ]
 }
+
+variable "vnet_address" {
+  description = "The address space of the Vnet that will be created"
+ }
