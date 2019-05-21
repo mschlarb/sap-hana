@@ -53,3 +53,7 @@ variable "vm_size" {
 variable "vm_user" {
   description = "The username of your VM."
 }
+
+variable "write_accelerator" {
+  description = "Whether or not you want to enable write accelerator for HANA log disks - this requires certain VM types"
+}

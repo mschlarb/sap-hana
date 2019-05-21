@@ -83,3 +83,6 @@ vnet_subnet_name = ["default"]
 
 # The desired private IP address of this HANA database.
 private_ip_address_hdb = "10.222.0.6"
+
+# If write accelerator for log is enabled
+write_accelerator = false

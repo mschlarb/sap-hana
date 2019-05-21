@@ -59,7 +59,7 @@ resource "azurerm_virtual_machine_data_disk_attachment" "disk_log" {
   managed_disk_id    = "${element(azurerm_managed_disk.disk_log.*.id, count.index)}"
   lun                = "${count.index + length(var.storage_disk_sizes_data)}"
   caching            = "None"
-  write_accelerator_enabled = true
+  write_accelerator_enabled = "${var.write_accelerator}"
 }
 
 # All disks that are in the storage_disk_sizes_shared list will be created

@@ -264,6 +264,11 @@ variable "linux_bastion" {
   default     = false
 }
 
+variable "write_accelerator" {
+  description = "Whether or not you want to enable write accelerator for HANA log disks - this requires certain VM types"
+  default = false
+}
+
 locals {
   #name of the linux vm
   linux_vm_name = "${var.az_domain_name}-linux-bastion"
