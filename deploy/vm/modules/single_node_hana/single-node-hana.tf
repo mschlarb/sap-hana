@@ -27,7 +27,9 @@ module "create_hdb" {
   public_ip_allocation_type = "${var.public_ip_allocation_type}"
   sap_sid                   = "${var.sap_sid}"
   sshkey_path_public        = "${var.sshkey_path_public}"
-  storage_disk_sizes_gb     = "${var.storage_disk_sizes_gb}"
+  storage_disk_sizes_data = "${var.storage_disk_sizes_data}"
+  storage_disk_sizes_log = "${var.storage_disk_sizes_log}"
+  storage_disk_sizes_shared = "${var.storage_disk_sizes_shared}"
   vm_user                   = "${var.vm_user}"
   vm_size                   = "${var.vm_size}"
 }

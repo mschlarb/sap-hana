@@ -57,3 +57,11 @@ locals {
 variable "vnet_address" {
   description = "The address space of the Vnet that will be created"
  }
+
+ variable "vnet_subnet_address" {
+  description = "The address of the first subnet"
+}
+
+variable "vnet_subnet_name" {
+  description = "The name of the first subnet"
+}
