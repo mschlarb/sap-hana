@@ -12,6 +12,9 @@ module "common_setup" {
   sap_instancenum   = "${var.sap_instancenum}"
   sap_sid           = "${var.sap_sid}"
   use_existing_nsg  = "${var.use_existing_nsg}"
+  vnet_address      = "${var.vnet_address}"
+  vnet_subnet_address = "${var.vnet_subnet_address}"
+  vnet_subnet_name  = "${var.vnet_subnet_name}"
 }
 
 module "create_hdb" {
