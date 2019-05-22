@@ -98,7 +98,7 @@ resource "azurerm_virtual_machine" "vm" {
     create_option     = "FromImage"
     managed_disk_type = "Premium_LRS"
   }
-
+# Replace with custom image
   storage_image_reference {
     publisher = "SUSE"
     offer     = "SLES-SAP"
