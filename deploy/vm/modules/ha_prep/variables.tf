@@ -75,8 +75,7 @@ variable "vnet_subnet_address" {
 
 variable "vnet_subnet_name" {
   description = "The name of the first subnet"
-  type = "list"
-  default = ["default"]
+  default = "default"
 }
 
 variable "private_ip_address_hdb" {

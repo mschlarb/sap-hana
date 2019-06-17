@@ -88,8 +88,7 @@ variable "hana_vnet_name" {
 
 variable "hana_subnet_name" {
   description = "The name of the first subnet"
-  type = "list"
-  default = ["default"]
+  default = "default"
 }
 
 locals {

@@ -47,30 +47,30 @@ module "create_hdb" {
   zone                      = "${var.zone}"
 }
 
-module "windows_bastion_host" {
-  source             = "../windows_bastion_host"
-  allow_ips          = "${var.allow_ips}"
-  az_domain_name     = "${var.az_domain_name}"
-  az_resource_group  = "${module.common_setup.resource_group_name}"
-  az_region          = "${var.az_region}"
-  sap_sid            = "${var.sap_sid}"
-  subnet_id          = "${module.common_setup.vnet_subnets[0]}"
-  bastion_username   = "${var.bastion_username_windows}"
-  private_ip_address = "${var.private_ip_address_windows_bastion}"
-  pw_bastion         = "${var.pw_bastion_windows}"
-  windows_bastion    = "${var.windows_bastion}"
-}
+#module "windows_bastion_host" {
+#  source             = "../windows_bastion_host"
+#  allow_ips          = "${var.allow_ips}"
+#  az_domain_name     = "${var.az_domain_name}"
+#  az_resource_group  = "${module.common_setup.resource_group_name}"
+#  az_region          = "${var.az_region}"
+#  sap_sid            = "${var.sap_sid}"
+#  subnet_id          = "${module.common_setup.vnet_subnets[0]}"
+#  bastion_username   = "${var.bastion_username_windows}"
+#  private_ip_address = "${var.private_ip_address_windows_bastion}"
+#  pw_bastion         = "${var.pw_bastion_windows}"
+#  windows_bastion    = "${var.windows_bastion}"
+#}
 
 # Writes the configuration to a file, which will be used by the Ansible playbook for creating linux bastion host
-resource "local_file" "write-config-to-json" {
-  content  = "{az_vm_name: \"${local.linux_vm_name}\",az_vnet: \"${module.common_setup.vnet_name}\",az_subnet: \"hdb-subnet\",linux_bastion: ${var.linux_bastion},url_linux_hana_studio: \"${var.url_hana_studio_linux}\", url_linux_sapcar: \"${var.url_sap_sapcar_linux}\",az_resource_group: \"${module.common_setup.resource_group_name}\", az_user: \"${var.vm_user}\", nsg_id: \"${module.common_setup.nsg_id}\", vm_size: \"${var.vm_size}\", private_ip_address: \"${var.private_ip_address_linux_bastion}\",az_public_key: \"${var.sshkey_path_public}\", ssh_private_key_file: \"${var.sshkey_path_private}\"}"
-  filename = "temp.json"
-}
+#resource "local_file" "write-config-to-json" {
+#  content  = "{az_vm_name: \"${local.linux_vm_name}\",az_vnet: \"${module.common_setup.vnet_name}\",az_subnet: \"hdb-subnet\",linux_bastion: ${var.linux_bastion},url_linux_hana_studio: \"${var.url_hana_studio_linux}\", url_linux_sapcar: \"${var.url_sap_sapcar_linux}\",az_resource_group: \"${module.common_setup.resource_group_name}\", az_user: \"${var.vm_user}\", nsg_id: \"${module.common_setup.nsg_id}\", vm_size: \"${var.vm_size}\", private_ip_address: \"${var.private_ip_address_linux_bastion}\",az_public_key: \"${var.sshkey_path_public}\", ssh_private_key_file: \"${var.sshkey_path_private}\"}"
+#  filename = "temp.json"
+#}
 
 module "configure_vm" {
   source                   = "../playbook-execution"
   ansible_playbook_path    = "${var.ansible_playbook_path}"
-  az_resource_group        = "${module.common_setup.resource_group_name}"
+  az_resource_group        = "${var.az_resource_group}"
   sshkey_path_private      = "${var.sshkey_path_private}"
   sap_instancenum          = "${var.sap_instancenum}"
   sap_sid                  = "${var.sap_sid}"
@@ -81,7 +81,7 @@ module "configure_vm" {
   pw_os_sidadm             = "${var.pw_os_sidadm}"
   pw_db_system             = "${var.pw_db_system}"
   useHana2                 = "${var.useHana2}"
-  vms_configured           = "${module.create_hdb.machine_hostname}, ${module.windows_bastion_host.machine_hostname}"
+  vms_configured           = "${module.create_hdb.machine_hostname}"
   hana1_db_mode            = "${var.hana1_db_mode}"
   url_xsa_runtime          = "${var.url_xsa_runtime}"
   url_di_core              = "${var.url_di_core}"
@@ -108,17 +108,17 @@ module "configure_vm" {
 }
 
 # Destroy the linux bastion host
-resource null_resource "destroy-vm" {
-  provisioner "local-exec" {
-    when = "destroy"
-
-    command = <<EOT
-               OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES \
-               AZURE_RESOURCE_GROUPS="${var.az_resource_group}" \
-               ANSIBLE_HOST_KEY_CHECKING="False" \
-               ansible-playbook -u '${var.vm_user}' \
-               --private-key '${var.sshkey_path_private}' \
-               --extra-vars="{az_resource_group: \"${module.common_setup.resource_group_name}\", az_vm_name: \"${local.linux_vm_name}\"}" ../../ansible/delete_bastion_linux.yml
-EOT
-  }
-}
+#resource null_resource "destroy-vm" {
+#  provisioner "local-exec" {
+#    when = "destroy"
+#
+#    command = <<EOT
+#               OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES \
+#               AZURE_RESOURCE_GROUPS="${var.az_resource_group}" \
+#               ANSIBLE_HOST_KEY_CHECKING="False" \
+#               ansible-playbook -u '${var.vm_user}' \
+#               --private-key '${var.sshkey_path_private}' \
+#               --extra-vars="{az_resource_group: \"${module.common_setup.resource_group_name}\", az_vm_name: \"${local.linux_vm_name}\"}" ../../ansible/delete_bastion_linux.yml
+#EOT
+#  }
+#}
