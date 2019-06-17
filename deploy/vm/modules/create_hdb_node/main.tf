@@ -1,4 +1,12 @@
 # This calls the module to create this node's network interface card and public IP.
+
+data "azurerm_subnet" "subnet" {
+  name                 = "${var.hana_subnet_name}"
+  virtual_network_name = "${var.hana_vnet_name}"
+  resource_group_name  = "${var.az_resource_group}"
+}
+
+
 module "nic_and_pip_setup" {
   source = "../generic_nic_and_pip"
 
@@ -6,11 +14,11 @@ module "nic_and_pip_setup" {
   az_region                 = "${var.az_region}"
   az_domain_name            = "${var.az_domain_name}"
   name                      = "${local.machine_name}"
-  nsg_id                    = "${var.nsg_id}"
-  subnet_id                 = "${var.hana_subnet_id}"
+  nsg_id                    = "${data.azurerm_subnet.subnet.network_security_group_id}"
+  subnet_id                 = "${data.azurerm_subnet.subnet.id}"
   private_ip_address        = "${var.private_ip_address}"
-  public_ip_allocation_type = "${var.public_ip_allocation_type}"
-  backend_ip_pool_ids       = "${var.backend_ip_pool_ids}"
+#  public_ip_allocation_type = "${var.public_ip_allocation_type}"
+#  backend_ip_pool_ids       = "${var.backend_ip_pool_ids}"
 }
 
 # This module creates a VM and the disks that HANA db will need.
@@ -23,6 +31,8 @@ module "vm_and_disk_creation" {
   storage_disk_sizes_data = "${var.storage_disk_sizes_data}"
   storage_disk_sizes_log = "${var.storage_disk_sizes_log}"
   storage_disk_sizes_shared = "${var.storage_disk_sizes_shared}"
+  write_accelerator     = "${var.write_accelerator}"
+  zone                  = "${var.zone}"
   machine_name          = "${local.machine_name}"
   vm_user               = "${var.vm_user}"
   vm_size               = "${var.vm_size}"

@@ -26,12 +26,14 @@ resource null_resource "configuration-check" {
 module "create_hdb" {
   source = "../create_hdb_node"
 
-  az_resource_group         = "${module.common_setup.resource_group_name}"
+  az_resource_group         = "${var.az_resource_group}}"
   az_region                 = "${var.az_region}"
   hdb_num                   = 0
   az_domain_name            = "${var.az_domain_name}"
-  hana_subnet_id            = "${module.common_setup.vnet_subnets[0]}"
-  nsg_id                    = "${module.common_setup.nsg_id}"
+#  hana_subnet_id            = "${module.common_setup.vnet_subnets[0]}"
+#  nsg_id                    = "${module.common_setup.nsg_id}"
+  hana_vnet_name            = "${var.vnet_name}"
+  hana_subnet_name          = "${var.vnet_subnet_name}"
   private_ip_address        = "${var.private_ip_address_hdb}"
   public_ip_allocation_type = "${var.public_ip_allocation_type}"
   sap_sid                   = "${var.sap_sid}"
@@ -39,9 +41,10 @@ module "create_hdb" {
   storage_disk_sizes_data = "${var.storage_disk_sizes_data}"
   storage_disk_sizes_log = "${var.storage_disk_sizes_log}"
   storage_disk_sizes_shared = "${var.storage_disk_sizes_shared}"
+  write_accelerator         = "${var.write_accelerator}"
   vm_user                   = "${var.vm_user}"
   vm_size                   = "${var.vm_size}"
-  zone                      = ["${var.zone}"]
+  zone                      = "${var.zone}"
 }
 
 module "windows_bastion_host" {

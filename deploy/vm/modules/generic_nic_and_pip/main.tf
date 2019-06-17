@@ -15,7 +15,7 @@
 
 # Create network interface
 resource "azurerm_network_interface" "nic" {
-  depends_on                = ["azurerm_public_ip.pip"]
+#  depends_on                = ["azurerm_public_ip.pip"]
   name                      = "${var.name}-nic"
   location                  = "${var.az_region}"
   resource_group_name       = "${var.az_resource_group}"

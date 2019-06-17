@@ -63,6 +63,10 @@ variable "vnet_address" {
   default     = "10.222.0.0/24"
 }
 
+variable "vnet_name" {
+  description = "The name of the existing Vnet"
+}
+
 variable "vnet_subnet_address" {
   description = "The address of the first subnet"
   type = "list"

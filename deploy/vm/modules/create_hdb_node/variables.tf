@@ -23,13 +23,13 @@ variable "hdb_num" {
   description = "The number of the node that is currently being created."
 }
 
-variable "hana_subnet_id" {
-  description = "The HANA specific subnet that this node needs to be on."
-}
+#variable "hana_subnet_id" {
+#  description = "The HANA specific subnet that this node needs to be on."
+#}
 
-variable "nsg_id" {
-  description = "The NSG id for the NSG that will control this VM."
-}
+#variable "nsg_id" {
+#  description = "The NSG id for the NSG that will control this VM."
+#}
 
 variable "private_ip_address" {
   description = "The desired private IP address of this NIC.  If it isn't specified, a dynamic IP will be allocated."
@@ -69,6 +69,27 @@ variable "vm_size" {
 
 variable "vm_user" {
   description = "The username of your HANA database VM."
+}
+
+variable "write_accelerator" {
+  description = "Whether or not you want to enable write accelerator for HANA log disks - this requires certain VM types"
+  default = false
+}
+
+variable "zone" {
+  description = "Specify the availability zone"
+  type = "list"
+  default = [1]
+}
+
+variable "hana_vnet_name" {
+  description = "The name of the existing Vnet"
+}
+
+variable "hana_subnet_name" {
+  description = "The name of the first subnet"
+  type = "list"
+  default = ["default"]
 }
 
 locals {
