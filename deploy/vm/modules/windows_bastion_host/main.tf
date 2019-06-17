@@ -28,7 +28,7 @@ resource "azurerm_network_security_group" "windows_bastion_nsg" {
     destination_address_prefix = "*"
   }
 
-  tags {
+  tags = {
     environment = "windows_bastion"
   }
 }
@@ -43,7 +43,7 @@ resource "azurerm_public_ip" "pip" {
 
   idle_timeout_in_minutes = 30
 
-  tags {
+  tags = {
     environment = "Terraform SAP HANA deployment"
   }
 }
@@ -65,7 +65,7 @@ resource "azurerm_network_interface" "nic" {
     private_ip_address_allocation = "${var.private_ip_address != local.empty_string ? local.static : local.dynamic}"
   }
 
-  tags {
+  tags = {
     environment = "Terraform SAP HANA deployment"
   }
 }
@@ -139,7 +139,7 @@ resource "azurerm_virtual_machine" "windows_bastion" {
     }
   }
 
-  tags {
+  tags = {
     win_bastion = ""
   }
 }

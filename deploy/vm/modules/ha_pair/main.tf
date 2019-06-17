@@ -24,7 +24,7 @@ resource "azurerm_availability_set" "ha-pair-availset" {
   platform_fault_domain_count  = 2
   managed                      = true
 
-  tags {
+  tags = {
     environment = "HA-Pair deployment"
   }
 }

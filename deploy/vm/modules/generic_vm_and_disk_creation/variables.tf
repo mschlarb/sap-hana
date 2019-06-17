@@ -57,3 +57,9 @@ variable "vm_user" {
 variable "write_accelerator" {
   description = "Whether or not you want to enable write accelerator for HANA log disks - this requires certain VM types"
 }
+
+variable "zone" {
+  description = "Specify the availability zone"
+  type = "list"
+  default = [1]
+}

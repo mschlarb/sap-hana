@@ -55,10 +55,10 @@ pwd_db_shine = "XXX"
 email_shine = "shine@myemailaddress.com"
 
 # Set this flag to true when installing HANA 2.0 (or false for HANA 1.0)
-useHana2 = false
+useHana2 = true
 
 # Set this flag to true when installing the XSA application server
-install_xsa = false
+install_xsa = true
 
 # Set this flag to true when installing SHINE demo content (requires XSA)
 install_shine = false
@@ -86,3 +86,6 @@ private_ip_address_hdb = "10.222.0.6"
 
 # If write accelerator for log is enabled
 write_accelerator = false
+
+# Specify the Availability Zone
+zone = [1]

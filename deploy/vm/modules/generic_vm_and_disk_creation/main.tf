@@ -16,7 +16,7 @@ resource "azurerm_storage_account" "bootdiagstorageaccount" {
   account_tier             = "Standard"
   account_replication_type = "LRS"
 
-  tags {
+  tags = {
     environment = "Terraform SAP HANA deployment"
   }
 }
@@ -91,6 +91,7 @@ resource "azurerm_virtual_machine" "vm" {
   availability_set_id           = "${var.availability_set_id}"
   vm_size                       = "${var.vm_size}"
   delete_os_disk_on_termination = "true"
+  zones = ["${var.zone}"]
 
   storage_os_disk {
     name              = "${var.machine_name}-OsDisk"
@@ -126,5 +127,4 @@ resource "azurerm_virtual_machine" "vm" {
     storage_uri = "${azurerm_storage_account.bootdiagstorageaccount.primary_blob_endpoint}"
   }
 
-  tags = "${merge(map(var.machine_type, ""), var.tags)}"
 }

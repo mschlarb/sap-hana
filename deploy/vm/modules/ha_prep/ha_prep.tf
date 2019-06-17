@@ -1,20 +1,26 @@
 # Configure the Microsoft Azure Provider
 provider "azurerm" {}
 
-module "common_setup" {
-  source            = "../common_setup"
-  allow_ips         = "${var.allow_ips}"
-  az_region         = "${var.az_region}"
-  az_resource_group = "${var.az_resource_group}"
-  existing_nsg_name = "${var.existing_nsg_name}"
-  existing_nsg_rg   = "${var.existing_nsg_rg}"
-  install_xsa       = "${var.install_xsa}"
-  sap_instancenum   = "${var.sap_instancenum}"
-  sap_sid           = "${var.sap_sid}"
-  use_existing_nsg  = "${var.use_existing_nsg}"
-  vnet_address      = "${var.vnet_address}"
-  vnet_subnet_address = "${var.vnet_subnet_address}"
-  vnet_subnet_name  = "${var.vnet_subnet_name}"
+#module "common_setup" {
+#  source            = "../common_setup"
+#  allow_ips         = "${var.allow_ips}"
+#  az_region         = "${var.az_region}"
+#  az_resource_group = "${var.az_resource_group}"
+#  existing_nsg_name = "${var.existing_nsg_name}"
+#  existing_nsg_rg   = "${var.existing_nsg_rg}"
+#  install_xsa       = "${var.install_xsa}"
+#  sap_instancenum   = "${var.sap_instancenum}"
+#  sap_sid           = "${var.sap_sid}"
+#  use_existing_nsg  = "${var.use_existing_nsg}"
+#  vnet_address      = "${var.vnet_address}"
+#  vnet_subnet_address = "${var.vnet_subnet_address}"
+#  vnet_subnet_name  = "${var.vnet_subnet_name}"
+#}
+
+resource null_resource "configuration-check" {
+  provisioner "local-exec" {
+    command = "ansible-playbook ../../ansible/configcheck.yml"
+  }
 }
 
 module "create_hdb" {
@@ -35,6 +41,7 @@ module "create_hdb" {
   storage_disk_sizes_shared = "${var.storage_disk_sizes_shared}"
   vm_user                   = "${var.vm_user}"
   vm_size                   = "${var.vm_size}"
+  zone                      = ["${var.zone}"]
 }
 
 module "windows_bastion_host" {

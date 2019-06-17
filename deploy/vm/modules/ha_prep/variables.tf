@@ -157,6 +157,12 @@ variable "storage_disk_sizes_shared" {
   default     = [512]
 }
 
+variable "zone" {
+  description = "Specify the availability zone"
+  type = "list"
+  default = [1]
+}
+
 variable "url_cockpit" {
   description = "URL for HANA Cockpit"
   default     = ""

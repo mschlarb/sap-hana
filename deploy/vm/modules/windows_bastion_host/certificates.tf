@@ -29,7 +29,7 @@ resource "azurerm_key_vault" "main" {
     secret_permissions = []
   }
 
-  tags {
+  tags = {
     bastion-key-vault = ""
   }
 }

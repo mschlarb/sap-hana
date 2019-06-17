@@ -11,7 +11,7 @@ resource "azurerm_resource_group" "hana-resource-group" {
   name       = "${var.az_resource_group}"
   location   = "${var.az_region}"
 
-  tags {
+  tags = {
     environment = "Terraform SAP HANA deployment"
   }
 }
@@ -27,7 +27,7 @@ module "vnet" {
   subnet_prefixes     = ["${var.vnet_subnet_address}"]
   vnet_name           = "${var.sap_sid}-vnet"
 
-  tags {
+  tags = {
     environment = "Terraform HANA vnet and subnet creation"
   }
 }
