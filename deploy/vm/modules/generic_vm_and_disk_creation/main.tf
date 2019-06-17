@@ -88,7 +88,7 @@ resource "azurerm_virtual_machine" "vm" {
   location                      = "${var.az_region}"
   resource_group_name           = "${var.az_resource_group}"
   network_interface_ids         = ["${var.nic_id}"]
-  availability_set_id           = "${var.availability_set_id}"
+#  availability_set_id           = "${var.availability_set_id}"
   vm_size                       = "${var.vm_size}"
   delete_os_disk_on_termination = "true"
   zones = ["${var.zone}"]

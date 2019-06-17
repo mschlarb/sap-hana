@@ -1,7 +1,7 @@
-variable "availability_set_id" {
-  description = "The id associated with the availability set to put this VM into."
-  default     = ""
-}
+#variable "availability_set_id" {
+#  description = "The id associated with the availability set to put this VM into."
+#  default     = ""
+#}
 
 variable "az_region" {}
 
