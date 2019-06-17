@@ -60,6 +60,5 @@ variable "write_accelerator" {
 
 variable "zone" {
   description = "Specify the availability zone"
-  type = "list"
-  default = [1]
+  default = ["1"]
 }

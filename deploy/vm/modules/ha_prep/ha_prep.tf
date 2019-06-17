@@ -26,7 +26,7 @@ resource null_resource "configuration-check" {
 module "create_hdb" {
   source = "../create_hdb_node"
 
-  az_resource_group         = "${var.az_resource_group}}"
+  az_resource_group         = "${var.az_resource_group}"
   az_region                 = "${var.az_region}"
   hdb_num                   = 0
   az_domain_name            = "${var.az_domain_name}"

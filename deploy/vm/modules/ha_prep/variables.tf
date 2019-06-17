@@ -162,8 +162,7 @@ variable "storage_disk_sizes_shared" {
 
 variable "zone" {
   description = "Specify the availability zone"
-  type = "list"
-  default = [1]
+  default = ["1"]
 }
 
 variable "url_cockpit" {
