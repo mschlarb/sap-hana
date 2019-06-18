@@ -169,7 +169,7 @@ variable "url_xsa_mta" {
 
 variable "useHana2" {
   description = "If this is set to true, then, ports specifically for HANA 2.0 will be opened."
-  default     = false
+  default     = true
 }
 
 variable "hana1_db_mode" {
@@ -188,4 +188,8 @@ variable "vms_configured" {
 variable "linux_bastion" {
   description = "flag to determine if linux bastion host is needed or not"
   default     = false
+}
+
+variable "ansible_targethost" {
+  description = "The FQDN of the PIP of the created VM"
 }

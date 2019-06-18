@@ -17,12 +17,6 @@ provider "azurerm" {}
 #  vnet_subnet_name  = "${var.vnet_subnet_name}"
 #}
 
-resource null_resource "configuration-check" {
-  provisioner "local-exec" {
-    command = "ansible-playbook ../../ansible/configcheck.yml"
-  }
-}
-
 module "create_hdb" {
   source = "../create_hdb_node"
 
@@ -69,6 +63,7 @@ module "create_hdb" {
 
 module "configure_vm" {
   source                   = "../playbook-execution"
+  ansible_targethost       = "${module.create_hdb.fqdn}"
   ansible_playbook_path    = "${var.ansible_playbook_path}"
   az_resource_group        = "${var.az_resource_group}"
   sshkey_path_private      = "${var.sshkey_path_private}"

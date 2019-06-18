@@ -35,6 +35,11 @@ variable "subnet_id" {
   description = "The subnet that this node needs to be on"
 }
 
+variable "zone" {
+  description = "Specify the availability zone"
+  default = "1"
+}
+
 locals {
   dynamic      = "Dynamic"
   empty_string = ""
