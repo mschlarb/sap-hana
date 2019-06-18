@@ -36,12 +36,12 @@
     dest: /hana/shared/install/
 
 - name: Extract XSA Runtime
-  command: ./SAPCAR_LINUX.EXE -manifest SIGNATURE.SMF -xvf EXTAPPSER00P_87-70001316.SAR -R EXTAPPSER00P_87
+  command: ./SAPCAR_LINUX.EXE -manifest SIGNATURE.SMF -xvf EXTAPPSER00P_102-70001316.SAR -R EXTAPPSER00P_102
   args:
     chdir: /hana/shared/install
     creates: /hana/shared/install/EXTAPPSER00P_87
 
 - name: Run hdblcm to install XSA components
-  shell: "pwd=$(<hdblcm_xsa.passwords); rm hdblcm_xsa.passwords; echo $pwd | SAP_HANA_DATABASE/hdblcm --component_root=/hana/shared/install/EXTAPPSER00P_87 --configfile=hdblcm_xsa.cfg --batch --read_password_from_stdin=xml"
+  shell: "pwd=$(<hdblcm_xsa.passwords); rm hdblcm_xsa.passwords; echo $pwd | SAP_HANA_DATABASE/hdblcm --component_root=/hana/shared/install/EXTAPPSER00P_102 --configfile=hdblcm_xsa.cfg --batch --read_password_from_stdin=xml"
   args:
     chdir: /hana/shared/install

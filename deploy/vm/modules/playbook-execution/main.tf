@@ -5,10 +5,12 @@ resource null_resource "mount-disks-and-configure-hana" {
     OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES \
     AZURE_RESOURCE_GROUPS="${var.az_resource_group}" \
     ANSIBLE_HOST_KEY_CHECKING="False" \
-    ansible-playbook ${var.ansible_targethost} -u ${var.vm_user} \
+    ansible-playbook -i ${var.ansible_targethost}, \
+    -u ${var.vm_user} \
     --private-key '${var.sshkey_path_private}' \
     --extra-vars="{ \"url_sapcar\": \"${var.url_sap_sapcar}\", \
      \"url_hdbserver\": \"${var.url_sap_hdbserver}\", \
+     \"fqdn\": \"${var.fqdn}\", \
      \"sap_sid\": \"${var.sap_sid}\", \
      \"sap_instancenum\": \"${var.sap_instancenum}\", \
      \"pwd_os_sapadm\": \"${var.pw_os_sapadm}\", \

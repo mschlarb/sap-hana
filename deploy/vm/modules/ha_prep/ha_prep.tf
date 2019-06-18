@@ -64,6 +64,7 @@ module "create_hdb" {
 module "configure_vm" {
   source                   = "../playbook-execution"
   ansible_targethost       = "${module.create_hdb.fqdn}"
+  fqdn                     = "${module.create_hdb.fqdn}"
   ansible_playbook_path    = "${var.ansible_playbook_path}"
   az_resource_group        = "${var.az_resource_group}"
   sshkey_path_private      = "${var.sshkey_path_private}"

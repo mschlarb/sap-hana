@@ -193,3 +193,7 @@ variable "linux_bastion" {
 variable "ansible_targethost" {
   description = "The FQDN of the PIP of the created VM"
 }
+
+variable "fqdn" {
+  description = "The domain for the xsa installation"
+}
