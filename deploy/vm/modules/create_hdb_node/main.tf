@@ -17,7 +17,7 @@ module "nic_and_pip_setup" {
   nsg_id                    = "${data.azurerm_subnet.subnet.network_security_group_id}"
   subnet_id                 = "${data.azurerm_subnet.subnet.id}"
   private_ip_address        = "${var.private_ip_address}"
-#  public_ip_allocation_type = "${var.public_ip_allocation_type}"
+  public_ip_allocation_type = "${var.public_ip_allocation_type}"
 #  backend_ip_pool_ids       = "${var.backend_ip_pool_ids}"
 }
 

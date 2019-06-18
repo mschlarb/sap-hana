@@ -60,10 +60,8 @@ variable "vnet_address" {
 
  variable "vnet_subnet_address" {
   description = "The address of the first subnet"
-  type = "list"
 }
 
 variable "vnet_subnet_name" {
   description = "The name of the first subnet"
-  type = "list"
 }

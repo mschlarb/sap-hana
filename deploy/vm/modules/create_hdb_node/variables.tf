@@ -27,9 +27,9 @@ variable "hdb_num" {
 #  description = "The HANA specific subnet that this node needs to be on."
 #}
 
-#variable "nsg_id" {
-#  description = "The NSG id for the NSG that will control this VM."
-#}
+variable "nsg_id" {
+  description = "The NSG id for the NSG that will control this VM."
+}
 
 variable "private_ip_address" {
   description = "The desired private IP address of this NIC.  If it isn't specified, a dynamic IP will be allocated."
@@ -78,7 +78,7 @@ variable "write_accelerator" {
 
 variable "zone" {
   description = "Specify the availability zone"
-  default = ["1"]
+  default = "1"
 }
 
 variable "hana_vnet_name" {

@@ -91,4 +91,4 @@ private_ip_address_hdb = "10.222.0.6"
 write_accelerator = false
 
 # Specify the Availability Zone
-zone = [1]
+zone = "1"

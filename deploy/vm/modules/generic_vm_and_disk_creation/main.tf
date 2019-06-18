@@ -30,6 +30,7 @@ resource "azurerm_managed_disk" "disk_data" {
   resource_group_name  = "${var.az_resource_group}"
   disk_size_gb         = "${var.storage_disk_sizes_data[count.index]}"
   create_option        = "Empty"
+  zones = ["${var.zone}"]
 }
 
 # All of the disks created above will now be attached to the VM
@@ -50,6 +51,7 @@ resource "azurerm_managed_disk" "disk_log" {
   resource_group_name  = "${var.az_resource_group}"
   disk_size_gb         = "${var.storage_disk_sizes_log[count.index]}"
   create_option        = "Empty"
+  zones = ["${var.zone}"]
 }
 
 # All of the disks created above will now be attached to the VM
@@ -71,6 +73,7 @@ resource "azurerm_managed_disk" "disk_shared" {
   resource_group_name  = "${var.az_resource_group}"
   disk_size_gb         = "${var.storage_disk_sizes_shared[count.index]}"
   create_option        = "Empty"
+  zones = ["${var.zone}"]
 }
 
 # All of the disks created above will now be attached to the VM
