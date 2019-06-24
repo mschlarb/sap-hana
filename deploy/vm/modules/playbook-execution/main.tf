@@ -48,8 +48,8 @@ resource null_resource "mount-disks-and-configure-hana" {
      ${var.ansible_playbook_path}
      EOT
 
-#    environment = {
-#      HOSTS = "${var.vms_configured}"
-#    }
+    environment = {
+      HOSTS = "${var.vms_configured}"
+    }
   }
 }
