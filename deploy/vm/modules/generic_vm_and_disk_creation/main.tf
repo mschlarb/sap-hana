@@ -106,7 +106,7 @@ resource "azurerm_virtual_machine" "vm" {
   storage_image_reference {
     publisher = "SUSE"
     offer     = "SLES-SAP"
-    sku       = "12-SP3"
+    sku       = "15"
     version   = "latest"
   }
 
@@ -129,5 +129,22 @@ resource "azurerm_virtual_machine" "vm" {
 
     storage_uri = "${azurerm_storage_account.bootdiagstorageaccount.primary_blob_endpoint}"
   }
+
+}
+
+resource "azurerm_virtual_machine_extension" "sapaem" {
+  name                 = "${var.machine_name}"
+  location             = "${var.az_region}"
+  resource_group_name  = "${var.az_resource_group}"
+  virtual_machine_name = "${azurerm_virtual_machine.vm.name}"
+  publisher            = "Microsoft.OSTCExtensions"
+  type                 = "AzureEnhancedMonitorForLinux"
+  type_handler_version = "3.0.1.0"
+
+#  settings = <<SETTINGS
+#    {
+#        "WADStorageAccountName": "${azurerm_storage_account.bootdiagstorageaccount.name}"
+#    }
+#SETTINGS
 
 }
