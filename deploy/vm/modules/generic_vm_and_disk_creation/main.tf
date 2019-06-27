@@ -133,18 +133,24 @@ resource "azurerm_virtual_machine" "vm" {
 }
 
 resource "azurerm_virtual_machine_extension" "sapaem" {
-  name                 = "${var.machine_name}"
+  depends_on = [
+    azurerm_virtual_machine_data_disk_attachment.disk_data,
+    azurerm_virtual_machine_data_disk_attachment.disk_log,
+    azurerm_virtual_machine_data_disk_attachment.disk_shared,
+  ]
+  name                 = "AzureEnhancedMonitorForLinux"
   location             = "${var.az_region}"
   resource_group_name  = "${var.az_resource_group}"
-  virtual_machine_name = "${azurerm_virtual_machine.vm.name}"
+  virtual_machine_name = "${var.machine_name}"
   publisher            = "Microsoft.OSTCExtensions"
   type                 = "AzureEnhancedMonitorForLinux"
-  type_handler_version = "3.0.1.0"
+  type_handler_version = "3.0"
+  auto_upgrade_minor_version = true
 
-#  settings = <<SETTINGS
-#    {
-#        "WADStorageAccountName": "${azurerm_storage_account.bootdiagstorageaccount.name}"
-#    }
-#SETTINGS
+  settings = <<SETTINGS
+    {
+        "WADStorageAccountName": "${azurerm_storage_account.bootdiagstorageaccount.name}"
+    }
+SETTINGS
 
 }
